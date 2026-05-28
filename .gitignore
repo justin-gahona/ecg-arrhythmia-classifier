@@ -1,0 +1,55 @@
+# =============================================================================
+# MIT-BIH Arrhythmia Database (large binary files)
+# Download from: https://physionet.org/content/mitdb/1.0.0/
+# =============================================================================
+data/*.dat
+data/*.hea
+data/*.atr
+data/all_beats.npy
+
+# =============================================================================
+# STM32CubeIDE build artifacts
+# =============================================================================
+ecg_classifier/Debug/
+
+# Precompiled X-CUBE-AI runtime library
+ecg_classifier/Middlewares/ST/AI/Lib/
+
+# IDE workspace metadata
+ecg_classifier/.settings/
+
+# =============================================================================
+# Vivado build outputs (synthesis/implementation artifacts, bitstreams)
+# =============================================================================
+ecg_classifier/fpga/ecg_fpga/ecg_fpga.runs/
+ecg_classifier/fpga/ecg_fpga/ecg_fpga.cache/
+ecg_classifier/fpga/ecg_fpga/ecg_fpga.ip_user_files/
+ecg_classifier/fpga/ecg_fpga/ecg_fpga.sim/
+ecg_classifier/fpga/ecg_fpga/ecg_fpga.hw/hw_1/wave/
+
+# =============================================================================
+# Large v1 model files (superseded by v2 in model/)
+# =============================================================================
+results/ecg_model.onnx
+results/ecg_model.pth
+
+# =============================================================================
+# Python
+# =============================================================================
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+.env
+venv/
+env/
+
+# =============================================================================
+# OS
+# =============================================================================
+.DS_Store
+Thumbs.db
+desktop.ini

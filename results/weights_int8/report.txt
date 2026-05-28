@@ -1,0 +1,13 @@
+INT8 Quantization Report — ECG CNN v2
+========================================
+
+Float32 baseline : 98.14%
+INT8 (deq)       : 98.17%
+Accuracy drop    : -0.03%
+
+Per-layer details:
+  conv1    shift=10  w_scale=0.00469040  w_size=   160B  b_size=32B
+  conv2    shift=15  w_scale=0.02845646  w_size= 10240B  b_size=64B
+  conv3    shift=16  w_scale=0.01989277  w_size= 40960B  b_size=128B
+  fc1      shift=16  w_scale=0.01957179  w_size= 65536B  b_size=128B
+  fc2      shift=14  w_scale=0.01541075  w_size=   640B  b_size=5B

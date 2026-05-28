@@ -1,0 +1,15 @@
+* text=auto
+*.sv text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.py text eol=lf
+*.ipynb text eol=lf
+*.xdc text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.onnx binary
+*.pth binary
+*.npy binary
+*.a binary
+*.elf binary
+*.bit binary
