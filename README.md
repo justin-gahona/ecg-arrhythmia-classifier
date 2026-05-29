@@ -270,6 +270,45 @@ Weights (float32): 460.52 KiB
 Activations RAM  : 27.00 KiB  (STM32 target)
 ```
 
+### Why the Adaptive Average Pool? (v1 → v2)
+
+The original model (v1, `ecg_model.onnx`) flattened directly after the third
+conv+pool block with no adaptive pooling:
+
+```
+conv3 → MaxPool(2) → 128 × 45 → Flatten → 5 760
+                                           │
+                                           FC1: Linear(5 760 → 128)
+                                           Params: 5760×128+128 = 737 408
+```
+
+That single FC1 layer alone needed **~2.8 MB of flash** just for weights.
+The STM32F446RE has **512 KB flash total** — the model couldn't fit.
+
+The fix was one line: `nn.AvgPool1d(kernel_size=11, stride=11)` inserted
+before the flatten.  It collapses each of the 128 feature channels from 45
+time-steps down to 4, reducing the FC1 input from 5 760 → 512:
+
+```
+conv3 → MaxPool(2) → 128 × 45 → AvgPool1d(11,11) → 128 × 4 → Flatten → 512
+                                                                 │
+                                                                 FC1: Linear(512 → 128)
+                                                                 Params: 512×128+128 = 65 664
+```
+
+| | v1 (no pooling) | v2 (with AvgPool) |
+|---|---|---|
+| FC1 input size | 5 760 | 512 |
+| FC1 params | 737 408 | 65 664 |
+| Total params | ~740 K | 117 893 |
+| Weights on-flash | ~2.8 MB | **460 KB** ✓ fits in STM32F446RE |
+| Float32 accuracy | 98.1 % | **98.14 %** |
+| INT8 accuracy | — | **98.17 %** |
+
+The spatial averaging acts as a mild regulariser, so accuracy didn't drop —
+it improved slightly.  The model went from too large to deploy to fitting
+comfortably in flash with 50 KB to spare.
+
 ### Output Classes (AAMI Standard)
 
 | idx | Label | Description |
