@@ -472,7 +472,8 @@ ecg-arrhythmia-classifier/
 │   └── ecg_model_v2.pth         PyTorch checkpoint
 │
 ├── notebooks/
-│   └── 01_explore_data.ipynb    MIT-BIH exploration, training, evaluation
+│   ├── 01_data_pipeline.ipynb   MIT-BIH download, filter, beat extraction
+│   └── 02_train_and_export.ipynb  Training, evaluation, ONNX export
 │
 ├── quantization/
 │   └── quantize_weights.py      Float32→INT8, writes .mem + cnn_params_pkg.sv
@@ -580,13 +581,18 @@ Then re-run Vivado synthesis so `$readmemh` picks up the new files.
 
 ## Training
 
-The notebook `notebooks/01_explore_data.ipynb` covers:
+**`notebooks/01_data_pipeline.ipynb`** covers:
 
-- MIT-BIH record loading with `wfdb`
+- MIT-BIH record loading and download with `wfdb`
 - Beat segmentation: ±180 samples around each annotation
 - Z-score normalisation per beat
 - AAMI label remapping (15 original MIT-BIH classes → 5 AAMI)
+- Saves `data/all_beats.npy` and `data/all_labels.npy`
+
+**`notebooks/02_train_and_export.ipynb`** covers:
+
 - Model training (PyTorch, Adam, cross-entropy, 50 epochs)
+- Evaluation and confusion matrix
 - Export to ONNX (`torch.onnx.export`)
 
 ### Environment
@@ -606,7 +612,7 @@ wfdb.dl_database('mitdb', 'data/')
 EOF
 ```
 
-Then run all cells in `notebooks/01_explore_data.ipynb`.
+Then run all cells in `notebooks/01_data_pipeline.ipynb`, followed by `notebooks/02_train_and_export.ipynb`.
 
 ---
 
