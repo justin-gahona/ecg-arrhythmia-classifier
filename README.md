@@ -1,19 +1,15 @@
 # ECG Arrhythmia Classifier
 
+![Accuracy](https://img.shields.io/badge/Accuracy-98.14%25-brightgreen)
+![Platform](https://img.shields.io/badge/Platform-STM32%20%7C%20FPGA-blue)
+![Language](https://img.shields.io/badge/Language-SystemVerilog%20%7C%20C%20%7C%20Python-orange)
+![Dataset](https://img.shields.io/badge/Dataset-MIT--BIH-lightgrey)
+![Classes](https://img.shields.io/badge/Classes-5%20AAMI-purple)
+
 Real-time 1-D CNN arrhythmia classification deployed on two independent
 embedded targets — an **STM32F446RE** (Cortex-M4, 180 MHz) via ST X-CUBE-AI, and a
 **Nexys A7-100T FPGA** via a hand-written SystemVerilog inference pipeline —
 both trained on the **MIT-BIH Arrhythmia Database**.
-
-```
- ██████╗ ██████╗ ██████╗     ███████╗ ██████╗ ██████╗
-██╔════╝██╔════╝██╔════╝     ██╔════╝██╔════╝██╔════╝
-██║     ██║  ███╗██║  ███╗   █████╗  ██║     ██║  ███╗
-██║     ██║   ██║██║   ██║   ██╔══╝  ██║     ██║   ██║
-╚██████╗╚██████╔╝╚██████╔╝   ███████╗╚██████╗╚██████╔╝
- ╚═════╝ ╚═════╝  ╚═════╝    ╚══════╝ ╚═════╝ ╚═════╝
-  98.14 % Float32  ·  98.17 % INT8  ·  5 AAMI classes
-```
 
 ---
 
